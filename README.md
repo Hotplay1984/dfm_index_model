@@ -9,6 +9,19 @@
 3. 使用动态因子模型（DFM）提取各指标的共同驱动因素
 4. 生成反映宏观经济整体走势的综合指数时间序列
 
+## 项目结构
+
+```
+dfm_index_model/
+├── __init__.py
+├── model.py          # 核心模型实现，包含IndexModel类
+├── config.py         # 配置文件读取和解析
+├── setup.py          # 包安装配置
+├── requirements.txt  # 依赖包列表
+├── .gitignore       # Git忽略文件配置
+└── README.md        # 项目说明文档
+```
+
 ## 配置文件
 
 项目使用`.ini`格式的配置文件来管理宏观经济指标的设置。配置文件默认位置：
@@ -50,7 +63,7 @@ stl = trend
 
 1. 安装依赖：
 ```bash
-pip install -r requirements.txt
+pip install -e .
 ```
 
 2. 设置配置文件路径（可选）：
@@ -63,45 +76,49 @@ export DFM_INDEX_CONFIG=~/.config/dfm_index_model/macro_indicators.ini
 from dfm_index_model import IndexModel
 
 # 初始化模型
-model = IndexModel()
+model = IndexModel(index_name="macro_index")
 
-# 获取并处理数据
-model.fetch_data()
-model.process_data()
+# 构建模型（包含数据获取、处理和指数生成）
+model.build_model()
 
-# 运行DFM模型并获取指数
-index = model.generate_index()
-```
-
-## 项目结构
-
-```
-dfm_index_model/
-├── __init__.py
-├── model.py          # 核心模型实现
-├── data_processor.py # 数据处理模块
-└── utils.py         # 工具函数
-
-configs/
-└── macro_indicators.ini  # 示例配置文件
-
-notebooks/
-└── examples/        # 示例notebook
+# 获取生成的指数
+index = model.dfm.factor
 ```
 
 ## 依赖项
 
 - Python >= 3.8
-- pandas
-- numpy
-- statsmodels
-- WindPy
+- pandas >= 1.5.0
+- numpy >= 1.20.0
+- statsmodels >= 0.13.0
+- WindPy (需要安装Wind金融终端)
+- tsalchemy (时间序列处理工具包)
+- wd (Wind数据API封装)
 
 ## 注意事项
 
 1. 需要有效的Wind Python API访问权限
 2. 配置文件中的Wind代码需要与数据库保持一致
 3. 建议将配置文件放在系统配置目录，与源代码分离
+4. 时间序列处理依赖tsalchemy包的功能
+5. Wind数据获取依赖wd包的封装
+
+## 开发指南
+
+1. 克隆仓库：
+```bash
+git clone git@github.com:Hotplay1984/dfm_index_model.git
+```
+
+2. 安装开发依赖：
+```bash
+pip install -e .
+```
+
+3. 运行测试：
+```bash
+# TODO: 添加测试用例
+```
 
 ## 许可证
 

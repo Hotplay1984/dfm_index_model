@@ -2,4 +2,4 @@ pandas>=1.5.0
 numpy>=1.20.0
 statsmodels>=0.13.0
 WindPy  # Wind Python API
-tsalchemy @ git+https://github.com/yourusername/tsalchemy.git  # 替换为实际的仓库地址 
+tsalchemy @ git+https://github.com/Hotplay1984/tsalchemy.git  # 替换为实际的仓库地址 
